@@ -28,14 +28,22 @@ type Movement struct {
 // GetProperties returns all the properties from a table on your db
 func GetProperties(ctx *context.Context, table string, idPrm int) {
 	idCnv := strconv.Itoa(idPrm)
-	var id int
 	fmt.Println("SELECT id FROM " + table + " WHERE id=" + idCnv)
-	err := ctx.Db.QueryRow("SELECT id FROM " + table + " WHERE id=" + idCnv)
-	switch {
-	case err != nil:
+	rows, err := ctx.Db.Query("SELECT id FROM " + table + " WHERE id=" + idCnv)
+
+	if err != nil {
 		log.Fatal(err)
-	default:
-		fmt.Printf("Id is %d\n", id)
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var id int
+		if err := rows.Scan(&id); err != nil {
+			log.Fatal(err)
+		}
+		fmt.Printf("%d\n", id)
+	}
+	if err := rows.Err(); err != nil {
+		log.Fatal(err)
 	}
 }
 

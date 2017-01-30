@@ -22,7 +22,7 @@ func Hello(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 func main() {
 	// dbConnection()
 	ctx := context.New()
-	GetProperties(ctx, "movements", 1)
+	GetProperties(ctx, "movements", 7)
 	router := httprouter.New()
 	router.GET("/", Index)
 	router.GET("/hello/:name", Hello)
