@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
-	"github.com/st4rl00rd/dynamiks/context"
+	"github.com/st4rl00rd/dynamics/context"
 )
 
 // Index function handles the request to a Html View

@@ -8,7 +8,7 @@ import (
 	"log"
 	"strconv"
 
-	"github.com/st4rl00rd/dynamiks/context"
+	"github.com/st4rl00rd/dynamics/context"
 	// import postgress Driver (pq)
 	_ "github.com/lib/pq"
 )
