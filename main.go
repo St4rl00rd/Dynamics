@@ -1,31 +1,24 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 
+	"fmt"
+
 	"github.com/julienschmidt/httprouter"
-	"github.com/st4rl00rd/dynamics/context"
+	"github.com/st4rl00rd/dynamics/movements"
 )
-
-// Index function handles the request to a Html View
-func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	fmt.Fprint(w, "Welcome!\n")
-}
-
-// Hello function handles the request to a Html View
-func Hello(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	fmt.Fprintf(w, "hello, %s!\n", ps.ByName("name"))
-}
 
 func main() {
 	// dbConnection()
-	ctx := context.New()
-	GetProperties(ctx, "movements", 7)
-	router := httprouter.New()
-	router.GET("/", Index)
-	router.GET("/hello/:name", Hello)
+	httpPort := "3000"
 
-	log.Fatal(http.ListenAndServe(":3000", router))
+	router := httprouter.New()
+	router.GET("/", movements.Index)
+	router.GET("/movements/:id", movements.Show)
+
+	fmt.Println("\n\nFull speed ahead Mr. Boatswain, full speed ahead! \nFull speed ahead it is, Sergeant. \nCut the cable, drop the cable! \nAye! Sir, Aye Captain, captain!\nSystem's Up!!! And Listening on port: " + httpPort)
+
+	log.Fatal(http.ListenAndServe(":"+httpPort, router))
 }
